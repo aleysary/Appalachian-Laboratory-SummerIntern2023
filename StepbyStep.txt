@@ -167,13 +167,13 @@ PI range        Number of 1s    Number of 0s    Number of N/A   FDR
 --------------------------------------------------------------------------------------------------------------------------------------------------
 *run Graphing.py (Graphs each Bin vs FDR )
 
-X axis = Bins
-Y axis = FDR
+X-axis = Bins
+Y-axis = FDR
 
 __________________________________________________________________________________________________________________________________________________
 
-
-
+Working here 
+(creating a class that adds all graph files into one file)
 
 
 
