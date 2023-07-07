@@ -75,8 +75,8 @@ AY147895.1      k__TPP;p__TPP;c__TPP;o__TPP;f__TPN;g__TPN;s__TPN;       94.8
 ............................................................................................................................................
 Table 2/3      (Organizes the table and removes k,p,c...)
 - Use ZeroOneTable.py
-run it: python3 ZeroOneTable.py output_txt 
-(output file name is the one in the code)
+run it: python3 ZeroOneTable.py output_txt outputnameyoudecide
+
 
 KX754503.1      TPP     TPP     TPP     TPP     TPP     TPP     TPP             99.5
 KY628249.1      TPP     TPP     TPP     TPP     TPP     TPP     TPP             100.0
@@ -86,8 +86,8 @@ AY147895.1      TPP     TPP     TPP     TPP     TPN     TPN     TPN             
 ............................................................................................................................................
 Table 3/3      (the True positive = 0, False positive = 1, True Negative and False Negative = N/A)
 - Use ZeroOneTableP2.py
-run it: python3 ZeroOneTableP2.py tableP.txt
-(output file name will be printed out)
+run it: python3 ZeroOneTableP2.py tableP.txt outputnameyoudecide
+
 
 
 KX754503.1      0       0       0       0       0       0       0               99.5
@@ -97,6 +97,8 @@ AY147895.1      0       0       0       0       1       1       1               
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 *run BinX1s0s.py (makes a default PI range and the genus that aligns with it)
+same way to run
+
 78 to 77        0       1       N/A     1       1       1       1       1       1       0       N/A     0       0       0       0       
 77 to 76        0       0       0       0       0       0       0       1       0       N/A     0       0       1       
 76 to 75        N/A     0       1       N/A     0       0       
@@ -104,6 +106,8 @@ AY147895.1      0       0       0       0       1       1       1               
 
 __________________________________________________________________________________________________________________________________________________
 *run Binsize.py (counts the number of 1s, 0s and N/As in each default PI Range)
+same way to run
+
 100 to 99       1767    3396    584
 99 to 98        503     919     170
 98 to 97        173     358     76
@@ -111,24 +115,76 @@ ________________________________________________________________________________
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 *run Binsize1.py (counts and calculates the number of 1s, 0s and N/A if N bins = 1 bins
+same way to run 
+
 100 to 99       1767    3396    584
 100 to 98       2270    4315    754
 100 to 97       2443    4673    830
 100 to 96       2551    4921    870
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
+*run TableMerge.py (adds all tables in 1 file)
+python input1 input2 input3 input4...
+output will depend 
 
-working here right now 
+I range        Number of 1s    Number of 0s    Number of N/A
+100 to 100      0       0       0
+100 to 99       1224    4018    3505
+100 to 98       1680    5394    4784
+100 to 97       1886    6072    5363
+100 to 96       2029    6494    5735
 
-calculating fdr through multiple tables  
+_________________________________________________________________________________________________________________________________________________
 
-...................................................................................................................................................
-(the table should be named K and then what it equals to: example: Table k16)
-100-99    amount of 1s    amount of 0s  FDR1
-100-98    amount of 1s    amount of 0s  FDR2
-100-97    amount of 1s    amount of 0s  FDR3
-...
----------------------------------------------------------------------------------------------------------------------------------------------------
-*Graph the Table above 
+*run TableMerge1.py (adds all tables in 1 table)
+python3 TableMerge1.py K2table3.txt
+
+PI range        Number of 1s    Number of 0s    Number of N/A
+--------------------------------------------------
+100 to 100      0       0       0
+100 to 99       2458    8136    6979
+100 to 98       3346    11010   9538
+100 to 97       3751    12326   10710
+100 to 96       4025    13205   11478
+100 to 95       4256    13943   12053
+100 to 94       4481    14672   12674
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+*run FinalTable.py (Gived FDR and switches PI Range to bins)
+python3 FinalTable.py K2table2.txt K2table.txt
+
+
+PI range        Number of 1s    Number of 0s    Number of N/A   FDR
+--------------------------------------------------      N/A
+0       0       0       0       N/A
+1       2458    8136    6979    0.23201812347
+2       3346    11010   9538    0.23307327947
+3       3751    12326   10710   0.23331467314
+4       4025    13205   11478   0.23360417876
+5       4256    13943   12053   0.23385900324
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+*run Graphing.py (Graphs each Bin vs FDR )
+
+X axis = Bins
+Y axis = FDR
+
+__________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
