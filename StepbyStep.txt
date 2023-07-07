@@ -28,9 +28,9 @@ KX929901.1      AP012241.1      100.0   120     0       0       1       120     
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 *Download Repository SimpleSequenceClassification from RTRichar or use the python files in my repository 
-- (run this first)                                  python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -h 
-- (Fasta Alignment x Original Taxonomy = Output )   python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -v 1TestAlignments.txt (TEXT ALGIN) -t 12S_Combined.tax (ORIGNAL DATA BASE) -o 1Test.tax (NEW FILE NAME)
-- (Original Taxonomy x Output = Trmd.txt)           python3 ./../4_TrimMtxa2IDs.py (Taxonomy new file) ${a}.Trmd.txt (NEW FILE OUTPUT)
+- (run this first)                                  python3 3_VsearchToMetaxa2.py -h 
+- (Fasta Alignment x Original Taxonomy = Output )   python3 3_VsearchToMetaxa2.py -v 1TestAlignments.txt (TEXT ALGIN) -t 12S_Combined.tax (ORIGNAL DATA BASE) -o 1Test.tax (NEW FILE NAME)
+- (Original Taxonomy x Output = Trmd.txt)           python3 4_TrimMtxa2IDs.py (Taxonomy new file) ${a}.Trmd.txt (NEW FILE OUTPUT)
 
 (Fasta Alignment x Original Taxonomy = Output):
 LC519394.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Perciformes;f__Serranidae;g__Cephalopholis;s__Cephalopholis igarashiensis;   100.0   164
@@ -123,8 +123,11 @@ same way to run
 100 to 96       2551    4921    870
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
+
+redo all steps above until done with all and then continue here
+
 *run TableMerge.py (adds all tables in 1 file)
-python input1 input2 input3 input4...
+python3 TableMerge.py input1 input2 input3 input4...
 output will depend 
 
 I range        Number of 1s    Number of 0s    Number of N/A
