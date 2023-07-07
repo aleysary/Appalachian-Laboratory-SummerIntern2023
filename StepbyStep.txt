@@ -1,0 +1,134 @@
+{Suggestion StepbyStep Plan}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+*Split into K parts (use ClusterP.py)
+- Make Program work in Unix (use Filezilla) 
+- sys.argv so put input file
+- Determine K
+- Run gives Test & Train for both Fasta & Taxonomy 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Download Vsearch:
+git clone https://github.com/torognes/vsearch.git
+cd vsearch
+./autogen.sh
+./configure CFLAGS="-O3" CXXFLAGS="-O3"
+make
+make install  # as root or sudo make install
+.....................................................................................................................
+*Align Fasta using this (change 1_Test_Fasta and the 1Training_Fasta.fa to the files of your choice):
+  vsearch --usearch_global 1Test_Fasta.fa --db 1Training_Fasta.fa --id 0.70  --maxaccepts 100 --maxrejects 50 --maxhits 1 --gapopen 0TE --gapext 0TE --userout 1TestAlignments.txt --userfields query+target+id+alnlen+mism+opens+qlo+qhi+tlo+thi+evalue+bits+qcov --query_cov 0.8 --threads 28
+
+
+(Test Fasta x Train Fasta = Fasta Alignment):
+LC519394.1      LC146239.1      100.0   164     0       0       1       164     1       165     -1      0       100.0
+KF294262.1      AF038015.1      99.1    220     2       0       1       222     1       220     -1      0       99.1
+EU601216.1      EU601212.1      99.1    219     2       0       1       219     1       220     -1      0       100.0
+KX929901.1      AP012241.1      100.0   120     0       0       1       120     1       220     -1      0       100.0
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+*Download Repository SimpleSequenceClassification from RTRichar or use the python files in my repository 
+- (run this first)                                  python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -h 
+- (Fasta Alignment x Original Taxonomy = Output )   python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -v 1TestAlignments.txt (TEXT ALGIN) -t 12S_Combined.tax (ORIGNAL DATA BASE) -o 1Test.tax (NEW FILE NAME)
+- (Original Taxonomy x Output = Trmd.txt)           python3 ./../4_TrimMtxa2IDs.py (Taxonomy new file) ${a}.Trmd.txt (NEW FILE OUTPUT)
+
+(Fasta Alignment x Original Taxonomy = Output):
+LC519394.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Perciformes;f__Serranidae;g__Cephalopholis;s__Cephalopholis igarashiensis;   100.0   164
+KF294262.1      k__Eukaryota;p__Chordata;c__Mammalia;o__Dasyuromorphia;f__Dasyuridae;g__Murexia;s__Murexia longicaudata;        99.1    220
+EU601216.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Labriformes;f__Labridae;g__Scarus;s__Scarus tricolor;        99.1    219
+KX929901.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Myctophiformes;f__Myctophidae;g__Lampanyctus;s__Lampanyctus crocodilus;      100.0   120
+
+You might want to skip this since its unnecessary but it's here for future use
+(Original Taxonomy x Output = Trmd.txt):
+LC519394.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Perciformes;f__Serranidae;g__Cephalopholis;s__Cephalopholis igarashiensis
+KF294262.1      k__Eukaryota;p__Chordata;c__Mammalia;o__Dasyuromorphia;f__Dasyuridae;g__Murexia;s__Murexia longicaudata
+EU601216.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Labriformes;f__Labridae;g__Scarus;s__Scarus tricolor
+KX929901.1      k__Eukaryota;p__Chordata;c__Actinopteri;o__Myctophiformes;f__Myctophidae;g__Lampanyctus;s__Lampanyctus crocodilus
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+*Determine TruePositive, False Positive, True Negative, False Negative 
+
+run DataToConfusion_5-2.java 
+
+java DataToConfusion_5-2.java Trmd1.txt 12S_Combined.tax NEWOUTPUTCONFUSION.txt   
+
+it will give an output NEWOUTPUTCONFUSION.txt which determines the TP FP TN FN
+
+Keys
+  TPP |  TP
+  TPN |  FP
+
+(change keys if need)
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+*TABLE
+
+
+Table 1/3 
+- Use ComparisonP.py 
+run it: python3 ComparisonP.py NEWOUTPUTCONFUSION.txt (Confusion output) newOutput1.tax (file with PI and length) output_txt (output)
+
+(Confusion x File with PI and length = Table1):
+KX754503.1      k__TPP;p__TPP;c__TPP;o__TPP;f__TPP;g__TPP;s__TPP;       99.5
+KY628249.1      k__TPP;p__TPP;c__TPP;o__TPP;f__TPP;g__TPP;s__TPP;       100.0
+AB032029.1      k__TPP;p__TPP;c__TPP;o__TPP;f__TPP;g__TPP;s__FP;        100.0
+AY147895.1      k__TPP;p__TPP;c__TPP;o__TPP;f__TPN;g__TPN;s__TPN;       94.8
+
+............................................................................................................................................
+Table 2/3      (Organizes the table and removes k,p,c...)
+- Use ZeroOneTable.py
+run it: python3 ZeroOneTable.py output_txt 
+(output file name is the one in the code)
+
+KX754503.1      TPP     TPP     TPP     TPP     TPP     TPP     TPP             99.5
+KY628249.1      TPP     TPP     TPP     TPP     TPP     TPP     TPP             100.0
+AB032029.1      TPP     TPP     TPP     TPP     TPP     TPP     FP              100.0
+AY147895.1      TPP     TPP     TPP     TPP     TPN     TPN     TPN             94.8
+
+............................................................................................................................................
+Table 3/3      (the True positive = 0, False positive = 1, True Negative and False Negative = N/A)
+- Use ZeroOneTableP2.py
+run it: python3 ZeroOneTableP2.py tableP.txt
+(output file name will be printed out)
+
+
+KX754503.1      0       0       0       0       0       0       0               99.5
+KY628249.1      0       0       0       0       0       0       0               100.0
+AB032029.1      0       0       0       0       0       0       N/A             100.0
+AY147895.1      0       0       0       0       1       1       1               94.8
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+*run BinX1s0s.py (makes a default PI range and the genus that aligns with it)
+78 to 77        0       1       N/A     1       1       1       1       1       1       0       N/A     0       0       0       0       
+77 to 76        0       0       0       0       0       0       0       1       0       N/A     0       0       1       
+76 to 75        N/A     0       1       N/A     0       0       
+75 to 74        N/A     0       1       0       0       0       0       0       1       N/A     0       
+
+__________________________________________________________________________________________________________________________________________________
+*run Binsize.py (counts the number of 1s, 0s and N/As in each default PI Range)
+100 to 99       1767    3396    584
+99 to 98        503     919     170
+98 to 97        173     358     76
+97 to 96        108     248     40
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+*run Binsize1.py (counts and calculates the number of 1s, 0s and N/A if N bins = 1 bins
+100 to 99       1767    3396    584
+100 to 98       2270    4315    754
+100 to 97       2443    4673    830
+100 to 96       2551    4921    870
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+working here right now 
+
+calculating fdr through multiple tables  
+
+...................................................................................................................................................
+(the table should be named K and then what it equals to: example: Table k16)
+100-99    amount of 1s    amount of 0s  FDR1
+100-98    amount of 1s    amount of 0s  FDR2
+100-97    amount of 1s    amount of 0s  FDR3
+...
+---------------------------------------------------------------------------------------------------------------------------------------------------
+*Graph the Table above 
+
+
