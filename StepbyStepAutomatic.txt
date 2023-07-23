@@ -1,0 +1,23 @@
+{Suggestion StepbyStep Automatic Plan}
+
+----------------------------------------------------------------------------------------------
+*run 1script.py (Script runs most StepbyStepManually) 
+
+python3 1script.py (any k value)
+
+----------------------------------------------------------------------------------------------
+*run Graphing1.py (Graphs each Bin crops until 40 only vs FDR )
+python3 Graphing1.py K4table.txt K4graph.png
+X-axis = Bins
+Y-axis = FDR
+
+----------------------------------------------------------------------------------------------
+*run Graphing2.py (Adds all tables (Graphs) into one Graph with all)
+python3 Graphing2.py K2table.txt K4table.txt K8table.txt K16table.txt 
+
+THIS WILL GIVE THE FINAL GRAPH THAT COMBINES ALL Ks
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
