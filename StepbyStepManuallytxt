@@ -1,4 +1,4 @@
-{Suggestion StepbyStep Plan}
+{Suggestion StepbyStep Manually plan}
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 *Split into K parts (use ClusterP.py)
@@ -169,18 +169,23 @@ PI range        Number of 1s    Number of 0s    Number of N/A   FDR
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 *run Graphing.py (Graphs each Bin vs FDR )
-
+python3 Graphing.py K4table.txt K4graph.png
 X-axis = Bins
 Y-axis = FDR
 
 __________________________________________________________________________________________________________________________________________________
+*run Graphing1.py (Graphs each Bin crops until 40 only vs FDR )
+python3 Graphing1.py K4table.txt K4graph.png
+X-axis = Bins
+Y-axis = FDR
 
-Working here 
-(creating a class that adds all graph files into one file)
+--------------------------------------------------------------------------------------------------------------------------------------------------
+*run Graphing2.py (Adds all tables (Graphs) into one Graph with all)
+python3 Graphing2.py K2table.txt K4table.txt K8table.txt K16table.txt 
 
+THIS WILL GIVE THE FINAL GRAPH THAT COMBINES ALL Ks
 
-
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 
