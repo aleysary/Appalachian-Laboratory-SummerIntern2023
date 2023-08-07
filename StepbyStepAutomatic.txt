@@ -1,5 +1,13 @@
 {Suggestion StepbyStep Automatic Plan}
 
+
+Download Vsearch:
+git clone https://github.com/torognes/vsearch.git
+cd vsearch
+./autogen.sh
+./configure CFLAGS="-O3" CXXFLAGS="-O3"
+make
+make install  # as root or sudo make install
 ----------------------------------------------------------------------------------------------
 *run 1script.py (Script runs most StepbyStepManually) 
 
