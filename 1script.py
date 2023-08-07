@@ -37,7 +37,7 @@ for i in range(1, k+1):
   # Vsearch to Metaxa
   vsearch_to_metaxa_command = [
     'python3',
-    '3_VsearchToMetaxa2.py',
+    '3_VsearchToMetaxa.py',
     '-v', 
     f'{index_str}TestAlignments.txt',
     '-t',
@@ -156,5 +156,3 @@ print(f"Final Table Output: {output_file}")
 
 print(result.stdout.decode())
 
-graph_command = ['python3', 'Graphing.py', f'K{k}table.txt', f'K{k}graph.png']
-subprocess.run(graph_command)
